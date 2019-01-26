@@ -30,8 +30,6 @@ public class Player : MonoBehaviour
     private void OnMovementDone(InputAction.CallbackContext ctx)
     {
         _move = ctx.ReadValue<Vector2>();
-
-        //Debug.Log("MOVE:" + _move);
     }
 
     private void OnDisable()

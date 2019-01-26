@@ -37,7 +37,7 @@ public class Follower : MonoBehaviour
                 homing = true;
                 agent.SetDestination(other.transform.position);
                 agent.speed = agent.speed * homingSpeedMultiplier;
-                Invoke("ReachHome", 1);
+                other.gameObject.GetComponent<Home>().ReachedHome(this.gameObject);
                 return;
             }
             if (other.CompareTag("Player")) {
@@ -46,10 +46,4 @@ public class Follower : MonoBehaviour
             }
         }
     }
-
-    void ReachHome() {
-        Destroy(gameObject, 1);
-    }
-
-
 }

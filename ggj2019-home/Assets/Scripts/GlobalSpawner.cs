@@ -28,5 +28,7 @@ public class GlobalSpawner : MonoBehaviour {
             }
             totalFollowers += numFollowers;
         }
+
+        GameController.GetInstance().SetInitialFollowers(totalFollowers);
     }
 }

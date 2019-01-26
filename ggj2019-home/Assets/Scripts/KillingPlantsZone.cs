@@ -34,6 +34,7 @@ public class KillingPlantsZone : MonoBehaviour {
 
                 if (elapsed > sampleTime && Random.Range(0f, 100f) < Random.Range(5, 10)) {
                     followersInside.Remove(other.gameObject.GetInstanceID());
+                    GameController.GetInstance().IncreaseKilledFollowers();
                     Destroy(entry.follower, 0.5f);
                 } else {
                     entry.timeSinceEnter = Time.realtimeSinceStartup;
