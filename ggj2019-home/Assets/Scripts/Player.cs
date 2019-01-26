@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     {
         _move = ctx.ReadValue<Vector2>();
 
-        Debug.Log("MOVE:" + _move);
+        //Debug.Log("MOVE:" + _move);
     }
 
     private void OnDisable()

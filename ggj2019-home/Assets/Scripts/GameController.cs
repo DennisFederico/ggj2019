@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        LoadScene(Scenes.UI);
+        //LoadScene(Scenes.UI);
     }
 
     private void LoadScene(Scenes scene)

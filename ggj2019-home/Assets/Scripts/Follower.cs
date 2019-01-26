@@ -50,4 +50,6 @@ public class Follower : MonoBehaviour
     void ReachHome() {
         Destroy(gameObject, 1);
     }
+
+
 }

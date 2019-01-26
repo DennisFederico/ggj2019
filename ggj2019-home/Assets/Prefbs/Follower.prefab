@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 946557787}
   m_Layer: 0
   m_Name: Follower
-  m_TagString: Untagged
+  m_TagString: Follower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138bff6c8ae32434eb93fb167fa6240e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToLosePlayer: 8
+  chaseDistance: 10
+  homingSpeedMultiplier: 1.5
 --- !u!54 &946557787
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spawner
   - Home
+  - Follower
   layers:
   - Default
   - TransparentFX
