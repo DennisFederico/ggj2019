@@ -5,38 +5,26 @@ using UnityEngine.AI;
 
 public class Follower : MonoBehaviour
 {
-    public float distanceToLosePlayer = 5;
-
+    public float chaseDistance = 10f;
+    public float homingSpeedMultiplier = 1.5f;
     private NavMeshAgent agent;
     private Transform player;
-    private bool followingPlayer;
+    private bool homing;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
     }
 
-    void Start()
-    {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-    }
-
-    void Update()
-    {
-        if (player != null)
-        {
-            if (followingPlayer)
-            {
+    void Update() {
+        if (!homing) {
+            if (player != null) {
                 agent.SetDestination(player.position);
-
                 float distanceToPlayer = (player.position - transform.position).magnitude;
-                if (distanceToPlayer > distanceToLosePlayer)
-                {
-                    followingPlayer = false;
-                    agent.SetDestination(transform.position);
+                if (distanceToPlayer > chaseDistance) {
+                    agent.isStopped = true;
+                    player = null;
+                    //agent.SetDestination(transform.position);
                 }
             }
         }
@@ -44,14 +32,22 @@ public class Follower : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            followingPlayer = true;
+        if (!homing) {
+            if (other.CompareTag("Home")) {
+                homing = true;
+                agent.SetDestination(other.transform.position);
+                agent.speed = agent.speed * homingSpeedMultiplier;
+                Invoke("ReachHome", 1);
+                return;
+            }
+            if (other.CompareTag("Player")) {
+                agent.isStopped = false;
+                player = other.gameObject.transform;
+            }
         }
     }
 
-    public void SetPlayer(Transform player)
-    {
-        this.player = player;
+    void ReachHome() {
+        Destroy(gameObject, 1);
     }
 }
