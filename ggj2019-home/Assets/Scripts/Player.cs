@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
         if (move != Vector3.zero)
         {
+            AudioManager.Instance.PlaySFX("PlayerWalk");
             move.Normalize();
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, Vector3.up);
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour
             transform.Translate(move * speed * Time.deltaTime);
             // Rotate
             transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
+        } else {
+            AudioManager.Instance.StopSFX("PlayerWalk");
         }
     }
 

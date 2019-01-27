@@ -9,6 +9,7 @@ public class SpeedPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
+            AudioManager.Instance.PlaySFX("SpeedPowerUp");
             Player player = other.GetComponent<Player>();
             player.speed = player.speed * speedMultiplier;
             IEnumerator coroutine = Debuff(bufferTime, speedMultiplier, player);

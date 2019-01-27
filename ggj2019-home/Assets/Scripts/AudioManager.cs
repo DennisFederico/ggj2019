@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     public AudioSource musicAudioSource;
     public Transform SFXHolder;
+    public AudioClip introAudioClip;
+    public AudioClip gameAudioClip;
 
     private static AudioManager instance;
     public static AudioManager Instance
@@ -46,7 +48,15 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void PlayMusic(AudioClip clip)
+    public void PlayIntroMusic() {
+        PlayMusic(introAudioClip);
+    }
+
+    public void PlayGameMusic() {
+        PlayMusic(gameAudioClip);
+    }
+
+    private void PlayMusic(AudioClip clip)
     {
         musicAudioSource.clip = clip;
         musicAudioSource.Play();
@@ -63,11 +73,21 @@ public class AudioManager : MonoBehaviour
         {
             try
             {
-                sfxAudioSources[name].Play();
+                if (!sfxAudioSources[name].isPlaying) { 
+                    sfxAudioSources[name].Play();
+                }
             }
             catch (System.Exception e) { }
         }
 
+    }
+
+    public void StopSFX(string name) {
+        if (sfxAudioSources != null) {
+            try {
+                sfxAudioSources[name].Stop();
+            } catch (System.Exception e) { }
+        }
     }
 }
 

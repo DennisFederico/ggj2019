@@ -8,26 +8,30 @@ public class Follower : MonoBehaviour
     public float chaseDistance = 10f;
     public float homingSpeedMultiplier = 1.5f;
     public float maxSpeedModifier = 5f;
+    public AudioClip[] deathAudioClips;
+    public AudioClip[] startChaseAudioClips;
+    public AudioClip[] reachHomeAudioClips;
+    public AudioClip[] stopChaseAudioClips;
     private float currentSpeedModifier;
     private NavMeshAgent agent;
-    private Transform player;
+    private AudioSource audioSource;
+    private Transform playerTransform;
     private bool homing;
 
-    void Awake()
-    {
+
+    void Awake() {
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
         if (!homing) {
-            if (player != null) {
+            if (playerTransform != null) {
                 setAgentSpeed();
-                agent.SetDestination(player.position);
-                float distanceToPlayer = (player.position - transform.position).magnitude;
+                agent.SetDestination(playerTransform.position);
+                float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
                 if (distanceToPlayer > chaseDistance) {
-                    agent.isStopped = true;
-                    player = null;
-                    //agent.SetDestination(transform.position);
+                    StopChase();
                 }
             }
         }
@@ -37,24 +41,55 @@ public class Follower : MonoBehaviour
     {
         if (!homing) {
             if (other.CompareTag("Home")) {
-                homing = true;
-                agent.SetDestination(other.transform.position);
-                agent.speed = agent.speed * homingSpeedMultiplier;
-                other.gameObject.GetComponent<Home>().ReachedHome(this.gameObject);
+                Home home = other.gameObject.GetComponentInParent<Home>();
+                GoHome(home);
                 return;
             }
             if (other.CompareTag("Player")) {
-                player = other.gameObject.transform;
-                agent.isStopped = false;
-                setAgentSpeed();
-                currentSpeedModifier = Random.Range(1f, maxSpeedModifier);
-                agent.SetDestination(player.position);
+                StartChase(other.gameObject.transform);
+                return;
             }
         }
     }
 
+    private void StartChase(Transform playerTransform) {
+        this.playerTransform = playerTransform;
+        playRandomAudio(startChaseAudioClips);
+        agent.isStopped = false;
+        setAgentSpeed();
+        currentSpeedModifier = Random.Range(1f, maxSpeedModifier);
+        agent.SetDestination(playerTransform.position);
+    }
+
+    private void StopChase() {
+        playRandomAudio(stopChaseAudioClips);
+        agent.isStopped = true;
+        playerTransform = null;
+        //agent.SetDestination(transform.position);
+    }
+
+    private void GoHome(Home home) {
+        this.homing = true;
+        playRandomAudio(reachHomeAudioClips);
+        agent.SetDestination(home.gameObject.transform.position);
+        agent.speed = agent.speed * homingSpeedMultiplier;
+        home.ReachedHome(this.gameObject);
+    }
+
+    public void Die() {
+        playRandomAudio(deathAudioClips);
+        GameController.GetInstance().IncreaseKilledFollowers();
+        Destroy(this.gameObject, 0.5f);
+    }
+
     private void setAgentSpeed() {
-        float playerSpeed = player.gameObject.GetComponent<Player>().speed;
+        float playerSpeed = playerTransform.gameObject.GetComponent<Player>().speed;
         agent.speed = playerSpeed - (playerSpeed * currentSpeedModifier) / 100;
+    }
+
+    private void playRandomAudio(AudioClip[] audioClips) {
+        int index = Random.Range(1, audioClips.Length) - 1;
+        audioSource.clip = audioClips[index];
+        audioSource.Play();
     }
 }
