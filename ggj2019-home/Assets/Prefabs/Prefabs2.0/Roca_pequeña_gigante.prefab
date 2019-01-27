@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 96681349519054499}
   - component: {fileID: 1940281672224108179}
   - component: {fileID: 2822323233697311311}
+  - component: {fileID: 5249132392164935137}
   m_Layer: 0
   m_Name: "Roca_peque\xF1a_gigante"
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &5249132392164935137
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927561407433005794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12792087
+  m_Center: {x: 0.0073790103, y: 0.009405052, z: 0.10923212}

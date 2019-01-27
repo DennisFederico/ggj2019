@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8142429105956313073}
   - component: {fileID: 8394217650364045990}
   - component: {fileID: 896431966350960191}
+  - component: {fileID: 4588926349355203304}
   m_Layer: 0
   m_Name: Roca_mediana_gigante
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &4588926349355203304
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315692281031074959}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18624067
+  m_Center: {x: -0.007858887, y: -0.007067861, z: 0.19690174}

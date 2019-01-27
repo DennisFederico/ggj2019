@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8615040642760579143}
   - component: {fileID: 8431287113003591434}
   - component: {fileID: 6397787318401512661}
+  - component: {fileID: 1974442833954112262}
   m_Layer: 0
   m_Name: "Roca_peque\xF1a"
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &1974442833954112262
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360474484084393617}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12792087
+  m_Center: {x: 0.0073790103, y: 0.009405052, z: 0.10923212}

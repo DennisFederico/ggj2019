@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7980912662025495903}
   - component: {fileID: 4440682788290835363}
   - component: {fileID: 4452479235017846845}
+  - component: {fileID: 9047428205811121150}
   m_Layer: 0
   m_Name: Roca_mediana
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &9047428205811121150
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144842441445345320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18624067
+  m_Center: {x: -0.007858887, y: -0.007067861, z: 0.19690174}

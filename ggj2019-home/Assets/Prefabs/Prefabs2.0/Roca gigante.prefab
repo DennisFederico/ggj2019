@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7601350885535481575}
   - component: {fileID: 1645663992676562563}
   - component: {fileID: 2683733647305104782}
+  - component: {fileID: 101236332351415478}
   m_Layer: 0
   m_Name: Roca gigante
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &101236332351415478
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886864065274333717}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.22862448
+  m_Center: {x: 0.002322644, y: 0.018873982, z: 0.15063393}
