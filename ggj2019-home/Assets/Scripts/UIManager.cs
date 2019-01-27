@@ -48,18 +48,30 @@ public class UIManager : MonoBehaviour
         {
             case States.MainMenu:
                 MainMenuCG.alpha = 1;
+                MainMenuCG.interactable = true;
                 PlayHudCG.alpha = 0;
+                PlayHudCG.interactable = false;
                 GameOverCG.alpha = 0;
+                GameOverCG.interactable = false;
+                GameOverCG.blocksRaycasts = false;
                 break;
             case States.PlayHud:
                 MainMenuCG.alpha = 0;
+                MainMenuCG.interactable = false;
                 PlayHudCG.alpha = 1;
+                PlayHudCG.interactable = true;
                 GameOverCG.alpha = 0;
+                GameOverCG.interactable = false;
+                GameOverCG.blocksRaycasts = false;
                 break;
             case States.GameOver:
                 MainMenuCG.alpha = 0;
+                MainMenuCG.interactable = false;
                 PlayHudCG.alpha = 0;
+                PlayHudCG.interactable = false;
                 GameOverCG.alpha = 1;
+                GameOverCG.interactable = true;
+                GameOverCG.blocksRaycasts = true;
                 break;
             default:
                 break;
@@ -96,5 +108,10 @@ public class UIManager : MonoBehaviour
         _winState = win;
         GameOverImage.gameObject.SetActive(!win);
         LevelCompletedImage.gameObject.SetActive(win);
+    }
+
+    public void Retry()
+    {
+        GameController.GetInstance().PlayAgain();
     }
 }

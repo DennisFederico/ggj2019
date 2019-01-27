@@ -30,14 +30,32 @@ public class GameController : MonoBehaviour
         Main
     }
 
-    void Awake()
-    {
-        if (_instance == null) _instance = this;
-    }
-
     public static GameController GetInstance()
     {
+        if (_instance == null)
+        {
+            _instance = FindObjectOfType<GameController>();
+            if (_instance == null)
+            {
+                GameObject obj = new GameObject();
+                obj.hideFlags = HideFlags.HideAndDontSave;
+                _instance = obj.AddComponent<GameController>();
+            }
+        }
         return _instance;
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetUIManager(UIManager uimanager)
@@ -47,7 +65,10 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(LoadScene(Scenes.UI, LoadSceneMode.Additive));
+        if (SceneManager.GetActiveScene().name.Equals("Boot"))
+        {
+            StartCoroutine(LoadScene(Scenes.UI, LoadSceneMode.Additive));
+        }
     }
 
     public void SetInitialFollowers(int initialFollowers)
@@ -115,7 +136,7 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(
             LoadScene(
-                Scenes.Boot, 
+                Scenes.UI, 
                 LoadSceneMode.Single));
     }
 

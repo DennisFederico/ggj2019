@@ -42,6 +42,8 @@ public class AudioManager : MonoBehaviour
                 sfxAudioSources.Add(child.gameObject.name, child.GetComponent<AudioSource>());
             }
         }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void PlayMusic(AudioClip clip)
