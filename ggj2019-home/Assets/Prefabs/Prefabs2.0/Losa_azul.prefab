@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7174143274198380184}
   - component: {fileID: 1911168234436207666}
   - component: {fileID: 4174705193862192906}
+  - component: {fileID: 3458187946629833999}
+  - component: {fileID: 4495387082031541855}
   m_Layer: 0
   m_Name: Losa_azul
   m_TagString: Untagged
@@ -77,3 +79,28 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3458187946629833999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4495387082031541854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6daaa4f2d7bdcdd46b8ad8fb030d3f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &4495387082031541855
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4495387082031541854}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7632598, y: 0.6376903, z: 0.087880544}
+  m_Center: {x: 0, y: 0, z: 0}
