@@ -7,6 +7,8 @@ public class Follower : MonoBehaviour
 {
     public float chaseDistance = 10f;
     public float homingSpeedMultiplier = 1.5f;
+    public float maxSpeedModifier = 5f;
+    private float currentSpeedModifier;
     private NavMeshAgent agent;
     private Transform player;
     private bool homing;
@@ -41,8 +43,12 @@ public class Follower : MonoBehaviour
                 return;
             }
             if (other.CompareTag("Player")) {
-                agent.isStopped = false;
                 player = other.gameObject.transform;
+                agent.isStopped = false;
+                float playerSpeed = player.gameObject.GetComponent<Player>().speed;
+                currentSpeedModifier = Random.Range(1f, maxSpeedModifier);
+                agent.speed = playerSpeed - (playerSpeed * currentSpeedModifier)/100;
+                agent.SetDestination(player.position);
             }
         }
     }

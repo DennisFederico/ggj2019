@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 10
   homingSpeedMultiplier: 1.5
+  maxSpeedModifier: 5
 --- !u!54 &946557787
 Rigidbody:
   m_ObjectHideFlags: 0
