@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour
                 LoadSceneMode.Additive, 
                 () =>
                 {
-                    _uimanager.SetState(UIManager.States.PlayHud);
+                    _uimanager.ShowPlayGameHUD();
                     _isGameRunning = true;
                 }
             )
@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
             _bestScore = _score;
             PlayerPrefs.SetInt(BestCoreKey, _bestScore);
         }
-        _uimanager.SetState(UIManager.States.GameOver);
+        _uimanager.ShowGameOver();
         _uimanager.SetBestScore(_bestScore);
         _uimanager.SetYourScore(_score);
         _uimanager.SetWinStatus(win);

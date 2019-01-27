@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public CanvasGroup MainMenuCG;
     public CanvasGroup PlayHudCG;
     public CanvasGroup GameOverCG;
+    public CanvasGroup CreditsCG;
 
     [Header("Text Fields")]
     public Text FollowersText;
@@ -23,58 +24,41 @@ public class UIManager : MonoBehaviour
     public Image GameOverImage;
     public Image LevelCompletedImage;
 
+    private CanvasGroup[] canvasGroups = new CanvasGroup[4];
+
     public enum States
     {
         MainMenu,
         PlayHud, 
-        GameOver
+        GameOver, 
+        Credits
     }
 
     private void Awake()
     {
+        canvasGroups[(int)States.MainMenu] = MainMenuCG;
+        canvasGroups[(int)States.PlayHud] = PlayHudCG;
+        canvasGroups[(int)States.GameOver] = GameOverCG;
+        canvasGroups[(int)States.Credits] = CreditsCG;
+
         GameController.GetInstance().SetUIManager(this);
         SetState(States.MainMenu);
     }
 
-    public void StartGame()
-    {
-        GameController.GetInstance().StartGame();
-    }
-
-    public void SetState(States newState)
+    private void SetState(States newState)
     {
         _state = newState;
-        switch (_state)
+        SetCanvasGroup(_state);
+    }
+
+    private void SetCanvasGroup(States state)
+    {
+        int stateNum = (int)state;
+        for (int i = 0; i < canvasGroups.Length; i++)
         {
-            case States.MainMenu:
-                MainMenuCG.alpha = 1;
-                MainMenuCG.interactable = true;
-                PlayHudCG.alpha = 0;
-                PlayHudCG.interactable = false;
-                GameOverCG.alpha = 0;
-                GameOverCG.interactable = false;
-                GameOverCG.blocksRaycasts = false;
-                break;
-            case States.PlayHud:
-                MainMenuCG.alpha = 0;
-                MainMenuCG.interactable = false;
-                PlayHudCG.alpha = 1;
-                PlayHudCG.interactable = true;
-                GameOverCG.alpha = 0;
-                GameOverCG.interactable = false;
-                GameOverCG.blocksRaycasts = false;
-                break;
-            case States.GameOver:
-                MainMenuCG.alpha = 0;
-                MainMenuCG.interactable = false;
-                PlayHudCG.alpha = 0;
-                PlayHudCG.interactable = false;
-                GameOverCG.alpha = 1;
-                GameOverCG.interactable = true;
-                GameOverCG.blocksRaycasts = true;
-                break;
-            default:
-                break;
+            canvasGroups[i].alpha = stateNum == i ? 1 : 0;
+            canvasGroups[i].interactable = stateNum == i ? true : false;
+            canvasGroups[i].blocksRaycasts = stateNum == i ? true : false;
         }
     }
 
@@ -108,6 +92,31 @@ public class UIManager : MonoBehaviour
         _winState = win;
         GameOverImage.gameObject.SetActive(!win);
         LevelCompletedImage.gameObject.SetActive(win);
+    }
+
+    public void StartGame()
+    {
+        GameController.GetInstance().StartGame();
+    }
+
+    public void ShowPlayGameHUD()
+    {
+        SetState(States.PlayHud);
+    }
+
+    public void ShowGameOver()
+    {
+        SetState(States.GameOver);
+    }
+
+    public void ShowCredits()
+    {
+        SetState(States.Credits);
+    }
+
+    public void BackFromCredits()
+    {
+        SetState(States.MainMenu);
     }
 
     public void Retry()
