@@ -177,7 +177,7 @@ public class GameController : MonoBehaviour
 
             if (_timeLeft <= 0)
             {
-                GameOver(false);
+               GameOver(false);
             }
             else if (leftFollowers <= 0)
             {

@@ -12,26 +12,46 @@ public class Follower : MonoBehaviour
     public AudioClip[] startChaseAudioClips;
     public AudioClip[] reachHomeAudioClips;
     public AudioClip[] stopChaseAudioClips;
+    public bool isPoisoned = false;
+    private Texture originalTexture;
     private float currentSpeedModifier;
     private NavMeshAgent agent;
     private AudioSource audioSource;
     private Transform playerTransform;
     private bool homing;
-
+    private bool isDying;
+    private float timeWhenPoisoned;
+    private int timeToLive;
+    private PoisonZoneManager poisonManager;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start() {
+        poisonManager = GameObject.FindObjectOfType<PoisonZoneManager>();
+    }
+
     void Update() {
-        if (!homing) {
-            if (playerTransform != null) {
-                setAgentSpeed();
-                agent.SetDestination(playerTransform.position);
-                float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
-                if (distanceToPlayer > chaseDistance) {
-                    StopChase();
+        if (!isDying) { 
+            if (!homing) {
+                if (playerTransform != null) {
+                    setAgentSpeed();
+                    agent.SetDestination(playerTransform.position);
+                    float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
+                    if (distanceToPlayer > chaseDistance) {
+                        StopChase();
+                    }
+                }
+
+                if (isPoisoned) {
+                    float elapsed = Time.realtimeSinceStartup - timeWhenPoisoned;
+                    if (elapsed > timeToLive) {
+                        Die();
+                    } else {
+                        poisonManager.SwitchColor(gameObject);
+                    }
                 }
             }
         }
@@ -77,9 +97,18 @@ public class Follower : MonoBehaviour
     }
 
     public void Die() {
+        isDying = true;
         playRandomAudio(deathAudioClips);
         GameController.GetInstance().IncreaseKilledFollowers();
         Destroy(this.gameObject, 0.5f);
+    }
+
+    public void Poisoned() {
+        if (poisonManager != null &&!isPoisoned) {
+            isPoisoned = true;
+            timeToLive = poisonManager.GetTimeToLive();
+            timeWhenPoisoned = Time.realtimeSinceStartup;
+        }
     }
 
     private void setAgentSpeed() {
@@ -88,7 +117,7 @@ public class Follower : MonoBehaviour
     }
 
     private void playRandomAudio(AudioClip[] audioClips) {
-        int index = Random.Range(1, audioClips.Length) - 1;
+        int index = Random.Range(0, audioClips.Length);
         audioSource.clip = audioClips[index];
         audioSource.Play();
     }

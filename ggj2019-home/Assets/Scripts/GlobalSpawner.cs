@@ -37,7 +37,7 @@ public class GlobalSpawner : MonoBehaviour {
     private void SetRandomTexture(Renderer renderer) {
         if (textures != null)
         {
-            Texture texture = textures[Random.Range(1, textures.Length)];
+            Texture texture = textures[Random.Range(0, textures.Length)];
             renderer.material.mainTexture = texture;
         }
     }
