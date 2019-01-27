@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c37002b41bbe2408ffc64678adbbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTime: 12
+  GameTime: 100
   CountDownTimeSound: 5
   InitialCamera: {fileID: 1774314621}
 --- !u!4 &816537448

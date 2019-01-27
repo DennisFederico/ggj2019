@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     private float _timeLeft;
     private int _uiTime;
     private int _bestScore;
+    private bool _isLoadingGame;
 
     private int _initialFollowers;
 
@@ -114,6 +115,12 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        if (_isLoadingGame)
+        {
+            return;
+        }
+
+        _isLoadingGame = true;
         _bestScore = PlayerPrefs.GetInt("best_score", 0);
         _timeLeft = GameTime;
         _followersCaptured = 0;
@@ -129,6 +136,7 @@ public class GameController : MonoBehaviour
                     AudioManager.Instance.PlaySFX("StartGame");
                     AudioManager.Instance.PlayGameMusic();
                     _isGameRunning = true;
+                    _isLoadingGame = false;
                 }
             )
         );
