@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 
     public float GameTime = 100;
     public int CountDownTimeSound = 5;
+    public Camera InitialCamera;
 
     private UIManager _uimanager;
 
@@ -69,7 +70,19 @@ public class GameController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name.Equals("Boot"))
         {
-            StartCoroutine(LoadScene(Scenes.UI, LoadSceneMode.Additive));
+            StartCoroutine(
+                LoadScene(
+                    Scenes.UI, 
+                    LoadSceneMode.Additive, 
+                    () =>
+                    {
+                        if (InitialCamera != null)
+                        {
+                            InitialCamera.gameObject.SetActive(false);
+                        }
+                    }
+                )
+            );
         }
     }
 

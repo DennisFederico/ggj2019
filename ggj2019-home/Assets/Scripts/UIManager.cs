@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public CanvasGroup PlayHudCG;
     public CanvasGroup GameOverCG;
     public CanvasGroup CreditsCG;
+    public CanvasGroup TutorialCG;
 
     [Header("Text Fields")]
     public Text FollowersText;
@@ -24,14 +25,17 @@ public class UIManager : MonoBehaviour
     public Image GameOverImage;
     public Image LevelCompletedImage;
 
-    private CanvasGroup[] canvasGroups = new CanvasGroup[4];
+    private CanvasGroup[] canvasGroups = new CanvasGroup[(int)States.Count];
 
     public enum States
     {
         MainMenu,
         PlayHud, 
         GameOver, 
-        Credits
+        Credits,
+        Tutorial,
+
+        Count
     }
 
     private void Awake()
@@ -40,6 +44,7 @@ public class UIManager : MonoBehaviour
         canvasGroups[(int)States.PlayHud] = PlayHudCG;
         canvasGroups[(int)States.GameOver] = GameOverCG;
         canvasGroups[(int)States.Credits] = CreditsCG;
+        canvasGroups[(int)States.Tutorial] = TutorialCG;
 
         GameController.GetInstance().SetUIManager(this);
         ShowMainMenu();
@@ -113,6 +118,11 @@ public class UIManager : MonoBehaviour
     public void ShowGameOver()
     {
         SetState(States.GameOver);
+    }
+
+    public void ShowTutorial()
+    {
+        SetState(States.Tutorial);
     }
 
     public void ShowCredits()
