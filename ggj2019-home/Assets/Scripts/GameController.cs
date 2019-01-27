@@ -14,15 +14,18 @@ public class GameController : MonoBehaviour
 
     private UIManager _uimanager;
 
+    [SerializeField]
+    private int _initialFollowers;
+    [SerializeField]
     private int _followersCaptured;
+    [SerializeField]
     private int _followersKilled;
+
     private int _score;
     private float _timeLeft;
     private int _uiTime;
     private int _bestScore;
     private bool _isLoadingGame;
-
-    private int _initialFollowers;
 
     private bool _isGameRunning = false;
 
