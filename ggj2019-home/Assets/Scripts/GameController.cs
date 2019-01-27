@@ -47,9 +47,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-#if !DENNIS
         StartCoroutine(LoadScene(Scenes.UI, LoadSceneMode.Additive));
-#endif
     }
 
     public void SetInitialFollowers(int initialFollowers)
@@ -75,7 +73,6 @@ public class GameController : MonoBehaviour
         {
             yield return null;
         }
-
         onLoaded?.Invoke();
     }
 
@@ -93,6 +90,7 @@ public class GameController : MonoBehaviour
                 () =>
                 {
                     _uimanager.SetState(UIManager.States.PlayHud);
+                    _isGameRunning = true;
                 }
             )
         );
