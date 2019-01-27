@@ -47,7 +47,9 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+#if !DENNIS
         StartCoroutine(LoadScene(Scenes.UI, LoadSceneMode.Additive));
+#endif
     }
 
     public void SetInitialFollowers(int initialFollowers)

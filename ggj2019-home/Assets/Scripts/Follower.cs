@@ -21,6 +21,7 @@ public class Follower : MonoBehaviour
     void Update() {
         if (!homing) {
             if (player != null) {
+                setAgentSpeed();
                 agent.SetDestination(player.position);
                 float distanceToPlayer = (player.position - transform.position).magnitude;
                 if (distanceToPlayer > chaseDistance) {
@@ -45,11 +46,15 @@ public class Follower : MonoBehaviour
             if (other.CompareTag("Player")) {
                 player = other.gameObject.transform;
                 agent.isStopped = false;
-                float playerSpeed = player.gameObject.GetComponent<Player>().speed;
+                setAgentSpeed();
                 currentSpeedModifier = Random.Range(1f, maxSpeedModifier);
-                agent.speed = playerSpeed - (playerSpeed * currentSpeedModifier)/100;
                 agent.SetDestination(player.position);
             }
         }
+    }
+
+    private void setAgentSpeed() {
+        float playerSpeed = player.gameObject.GetComponent<Player>().speed;
+        agent.speed = playerSpeed - (playerSpeed * currentSpeedModifier) / 100;
     }
 }
