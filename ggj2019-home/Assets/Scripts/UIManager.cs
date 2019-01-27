@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
         canvasGroups[(int)States.Credits] = CreditsCG;
 
         GameController.GetInstance().SetUIManager(this);
-        SetState(States.MainMenu);
+        ShowMainMenu();
     }
 
     private void SetState(States newState)
@@ -94,6 +94,12 @@ public class UIManager : MonoBehaviour
         LevelCompletedImage.gameObject.SetActive(win);
     }
 
+    public void ShowMainMenu()
+    {
+        SetState(States.MainMenu);
+        AudioManager.Instance.PlayIntroMusic();
+    }
+
     public void StartGame()
     {
         GameController.GetInstance().StartGame();
@@ -122,5 +128,10 @@ public class UIManager : MonoBehaviour
     public void Retry()
     {
         GameController.GetInstance().PlayAgain();
+    }
+
+    public void PlayClickSFX()
+    {
+        AudioManager.Instance.PlaySFX("MenuClick");
     }
 }

@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        PlayerInputControls.Player.Shot.performed += _ => Shot();
         PlayerInputControls.Player.Movement.performed += OnMovementDone;
         
         foreach(InputDevice device in InputSystem.devices)
@@ -39,12 +38,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Move(_move);
-    }
+        if (!GameController.GetInstance().IsGameRunning())
+        {
+            return;
+        }
 
-    private void Shot()
-    {
-        Debug.Log("SHOT");
+        Move(_move);
     }
 
     private void Move(Vector2 inputMove)

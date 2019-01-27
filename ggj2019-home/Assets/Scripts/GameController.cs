@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     private static string BestCoreKey = "best_score";
 
     public float GameTime = 100;
+    public int CountDownTimeSound = 5;
 
     private UIManager _uimanager;
 
@@ -16,6 +17,7 @@ public class GameController : MonoBehaviour
     private int _followersKilled;
     private int _score;
     private float _timeLeft;
+    private int _uiTime;
     private int _bestScore;
 
     private int _initialFollowers;
@@ -111,6 +113,8 @@ public class GameController : MonoBehaviour
                 () =>
                 {
                     _uimanager.ShowPlayGameHUD();
+                    AudioManager.Instance.PlaySFX("StartGame");
+                    AudioManager.Instance.PlayGameMusic();
                     _isGameRunning = true;
                 }
             )
@@ -148,7 +152,7 @@ public class GameController : MonoBehaviour
             _uimanager.SetFollowers(leftFollowers);
 
             _timeLeft -= Time.deltaTime;
-            _uimanager.SetTime((int) _timeLeft);
+            SetUITime();
 
             if (_timeLeft <= 0)
             {
@@ -159,6 +163,37 @@ public class GameController : MonoBehaviour
                 GameOver(true);
             }
         }
+    }
+
+    private void SetUITime()
+    {
+        int newUITime = (int)_timeLeft;
+        if (newUITime <= CountDownTimeSound && _uiTime > newUITime)
+        {
+            if (newUITime > 0)
+            {
+                AudioManager.Instance.StopSFX("CountDownSimple");
+                AudioManager.Instance.PlaySFX("CountDownSimple");
+            }
+            else
+            {
+                AudioManager.Instance.PlaySFX("CountDownFinal");
+                StartCoroutine(StopFinalBeep());
+            }
+        }
+        _uiTime = newUITime;
+        _uimanager.SetTime(_uiTime);
+    }
+
+    IEnumerator StopFinalBeep()
+    {
+        yield return new WaitForSeconds(3);
+        AudioManager.Instance.StopSFX("CountDownFinal");
+    }
+
+    public bool IsGameRunning()
+    {
+        return _isGameRunning;
     }
 
 }
